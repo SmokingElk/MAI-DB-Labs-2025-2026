@@ -1,0 +1,81 @@
+@startuml fitness-app
+hide circle
+
+entity user {
+  * id : UUID
+  --
+  * username : VARCHAR(32)
+  * password_hash : VARCHAR(64)
+  * created_at : TIMESTAMP
+}
+
+entity unit {
+  * id : UUID
+  --
+  * name : VARCHAR(16)
+}
+
+entity agregation {
+  * id : UUID
+  --
+  * name : VARCHAR(16)
+}
+
+entity activity {
+  * id : UUID
+  --
+  * name : VARCHAR(64)
+}
+
+entity metrics {
+  * id : UUID
+  --
+  * name : VARCHAR(64)
+  * unit_id : UUID
+}
+
+entity target {
+  * id : UUID
+  --
+  * activity_id : UUID
+  * metrics_id : UUID
+  * agregation_id : UUID
+  * user_id : UUID
+  * period : INTERVAL
+  * created_at : TIMESTAMP
+}
+
+entity workout {
+  * id : UUID
+  --
+  * activity_id : UUID
+  * datetime : TIMESTAMP
+  * user_id : UUID
+  * created_at : TIMESTAMP
+}
+
+entity measurement {
+  * id : UUID
+  --
+  * workout_id : UUID
+  * metrics_id : UUID
+  * value : BIGINT
+}
+
+' Связи
+user ||--o{ target
+user ||--o{ workout
+
+activity ||--o{ target
+activity ||--o{ workout
+
+metrics ||--o{ target
+
+agregation ||--o{ target
+
+workout ||--o{ measurement
+metrics ||--o{ measurement
+
+unit ||--o{ metrics
+
+@enduml
