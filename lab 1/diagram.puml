@@ -1,7 +1,6 @@
 @startuml fitness-app
-hide circle
 
-entity user {
+entity "user" {
   * id : UUID
   --
   * username : VARCHAR(32)
@@ -9,32 +8,32 @@ entity user {
   * created_at : TIMESTAMP
 }
 
-entity unit {
+entity "unit" {
   * id : UUID
   --
   * name : VARCHAR(16)
 }
 
-entity agregation {
+entity "agregation" {
   * id : UUID
   --
   * name : VARCHAR(16)
 }
 
-entity activity {
+entity "activity" {
   * id : UUID
   --
   * name : VARCHAR(64)
 }
 
-entity metrics {
+entity "metrics" {
   * id : UUID
   --
   * name : VARCHAR(64)
   * unit_id : UUID
 }
 
-entity target {
+entity "target" {
   * id : UUID
   --
   * activity_id : UUID
@@ -45,7 +44,7 @@ entity target {
   * created_at : TIMESTAMP
 }
 
-entity workout {
+entity "workout" {
   * id : UUID
   --
   * activity_id : UUID
@@ -54,7 +53,7 @@ entity workout {
   * created_at : TIMESTAMP
 }
 
-entity measurement {
+entity "measurement" {
   * id : UUID
   --
   * workout_id : UUID
