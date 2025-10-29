@@ -1,6 +1,6 @@
 @startuml fitness-app
 
-entity "user" {
+entity "app_user" {
   * id : UUID
   --
   * username : VARCHAR(32)
@@ -62,8 +62,8 @@ entity "measurement" {
 }
 
 ' Связи
-user ||--o{ target
-user ||--o{ workout
+app_user ||--o{ target
+app_user ||--o{ workout
 
 activity ||--o{ target
 activity ||--o{ workout
