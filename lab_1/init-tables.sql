@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS user (
+CREATE TABLE IF NOT EXISTS app_user (
     id            UUID PRIMARY KEY,
     username      VARCHAR(32) UNIQUE NOT NULL,
     password_hash VARCHAR(64) NOT NULL,
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS target (
     activity_id   UUID REFERENCES activity(id) NOT NULL,
     metrics_id    UUID REFERENCES metrics(id) NOT NULL,
     agregation_id UUID REFERENCES agregation(id) NOT NULL,
-    user_id       UUID REFERENCES user(id) NOT NULL,
+    user_id       UUID REFERENCES app_user(id) NOT NULL,
     period        INTERVAL NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()  
 );
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS workout (
     id          UUID PRIMARY KEY,
     activity_id UUID REFERENCES activity(id) NOT NULL,
     datetime    TIMESTAMP WITH TIME ZONE NOT NULL,
-    user_id     UUID REFERENCES user(id) NOT NULL,
+    user_id     UUID REFERENCES app_user(id) NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()  
 );
 
