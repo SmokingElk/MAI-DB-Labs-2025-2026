@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS app_user (
     id            UUID PRIMARY KEY,
-    username      VARCHAR(32) UNIQUE NOT NULL,
+    username      VARCHAR(32) NOT NULL,
     password_hash VARCHAR(64) NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()  
 );
@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS agregation (
 -- e. g. Jogging, Swimming
 CREATE TABLE IF NOT EXISTS activity (
     id   UUID PRIMARY KEY,
-    name VARCHAR(64) UNIQUE NOT NULL 
+    name VARCHAR(64) NOT NULL 
 );
 
 -- e. g. Distance, Time

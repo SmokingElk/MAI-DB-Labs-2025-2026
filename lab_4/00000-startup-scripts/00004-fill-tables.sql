@@ -130,3 +130,48 @@ INSERT INTO measurement (id, workout_id, metrics_id, value) VALUES
   ('70000000-0000-0000-0000-000000000018','60000000-0000-0000-0000-000000000011','40000000-0000-0000-0000-000000000002',60),
   ('70000000-0000-0000-0000-000000000019','60000000-0000-0000-0000-000000000012','40000000-0000-0000-0000-000000000001',12000),
   ('70000000-0000-0000-0000-000000000020','60000000-0000-0000-0000-000000000012','40000000-0000-0000-0000-000000000002',85);
+
+-- fill with random
+INSERT INTO app_user (id, username, password_hash)
+SELECT 
+    gen_random_uuid(), 
+    'user_' || substring(md5(random()::text), 1, 8),
+    md5(random()::text) || md5(random()::text)
+FROM generate_series(1, 100000);
+
+INSERT INTO measurement (id, workout_id, metrics_id, value)
+SELECT 
+    gen_random_uuid(),
+    CASE 
+        WHEN random() < 0.5 THEN 
+            '60000000-0000-0000-0000-000000000001'::uuid
+        ELSE 
+            '60000000-0000-0000-0000-000000000002'::uuid
+    END AS workout_id,
+    '40000000-0000-0000-0000-000000000001'::uuid, 
+    floor(random() * 10000 + 1)::bigint 
+FROM generate_series(1, 100000);
+
+INSERT INTO measurement (id, workout_id, metrics_id, value)
+VALUES (
+    gen_random_uuid(),
+    '60000000-0000-0000-0000-000000000003'::uuid,
+    '40000000-0000-0000-0000-000000000003'::uuid,
+    100
+);
+
+INSERT INTO activity (id, name)
+SELECT 
+    gen_random_uuid() as id,
+    CASE 
+        WHEN random() < 0.3333 THEN 
+            substring(md5(random()::text), 1, 3) || 
+            'swimming' || 
+            substring(md5(random()::text), 1, 3)
+        ELSE 
+            substring(md5(random()::text), 1, 16)
+    END as name
+FROM generate_series(1, 100000);
+
+SET enable_hashjoin=off;
+SET enable_hashagg=off;
